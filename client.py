@@ -1,8 +1,9 @@
 import pygame
-width = 500
-height = 500
+import MainMenu
+width = 800
+height = 800
 win = pygame.display.set_mode((width, height))
-pygame.display.set_caption("client")
+pygame.display.set_caption("Mini Games")
 
 clientNumber = 0
 
@@ -34,6 +35,8 @@ def redrawWindow(win, player):
     
     win.fill((255,255,255))
     player.draw(win)
+    
+    m = MainMenu.Menu(win)
     pygame.display.update()
 
 def main():
