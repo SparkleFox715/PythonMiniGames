@@ -1,12 +1,13 @@
 import pygame
 import MainMenu
+import pyautogui
+pygame.init()
 width = 800
 height = 800
 win = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Mini Games")
 
 clientNumber = 0
-
+GameScreen = 0
 class Player():
     def __init__(self, x, y, width, height,color):
         self.x=  x
@@ -33,10 +34,11 @@ class Player():
 
 def redrawWindow(win, player):
     
-    win.fill((255,255,255))
-    player.draw(win)
     
-    m = MainMenu.Menu(win)
+    #player.draw(win)
+    if GameScreen==0:
+        win.fill((246, 114, 128))
+        m = MainMenu.Menu(win)
     pygame.display.update()
 
 def main():
@@ -49,7 +51,10 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-        p.move()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                print(pyautogui.position)
+
+        #p.move()
         redrawWindow(win, p)
 
 main()
