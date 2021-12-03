@@ -36,11 +36,14 @@ class Player():
         self.rect = (self.x, self.y, self.width, self.height)
 
 
-def redrawWindow(win, player):
+def redrawWindow(win, player, GameScreen):
     # player.draw(win)
     if GameScreen == 0:
-        win.fill((246, 114, 128))
         m = MainMenu.Menu(win, True)
+        self.GameScreen+=1
+        print("Main Menu Done")
+    else:
+        win.fill((246, 114, 128))
     pygame.display.update()
 
 
@@ -54,14 +57,10 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if m.outsideX < pygame.mouse.get_pos()[0] < m.outsideX+m.outsideWidth and m.b1OutsideY<pygame.mouse.get_pos()[1] < m.b1OutsideY+m.outsideHeight:
-                    print("begin")
-                elif m.outsideX < pygame.mouse.get_pos()[0] < m.outsideX+m.outsideWidth and m.b2OutsideY<pygame.mouse.get_pos()[1] < m.b2OutsideY+m.outsideHeight:
-                    run = False
-                    pygame.quit()
+            
+                
         # p.move()
-        redrawWindow(win, p)
+        redrawWindow(win, p, GameScreen)
 
 
 main()
