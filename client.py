@@ -1,5 +1,6 @@
 import pygame
 import MainMenu
+import PlayerInfo
 
 pygame.init()
 width = 800
@@ -9,7 +10,7 @@ win = pygame.display.set_mode((width, height))
 clientNumber = 0
 GameScreen = 0
 m = MainMenu.Menu(win, False)
-
+Player =PlayerInfo.player("")
 class Player():
     def __init__(self, x, y, width, height, color):
         self.x = x
@@ -36,12 +37,15 @@ class Player():
         self.rect = (self.x, self.y, self.width, self.height)
 
 
-def redrawWindow(win, player, GameScreen):
+def redrawWindow(win, player):
     # player.draw(win)
-    if self.GameScreen == 0:
+    global GameScreen
+    global Player
+    global m
+    if GameScreen == 0:
         m = MainMenu.Menu(win, True)
-        self.GameScreen+=1
-        print("Main Menu Done")
+        GameScreen+=1
+        Player = PlayerInfo.player(m.username)
     else:
         win.fill((246, 114, 128))
     pygame.display.update()
@@ -60,7 +64,7 @@ def main():
             
                 
         # p.move()
-        redrawWindow(win, p, GameScreen)
+        redrawWindow(win, p)
 
 
 main()
