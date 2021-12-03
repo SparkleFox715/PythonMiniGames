@@ -38,7 +38,7 @@ class Player():
 
 def redrawWindow(win, player, GameScreen):
     # player.draw(win)
-    if GameScreen == 0:
+    if self.GameScreen == 0:
         m = MainMenu.Menu(win, True)
         self.GameScreen+=1
         print("Main Menu Done")
