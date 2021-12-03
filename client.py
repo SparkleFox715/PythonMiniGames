@@ -8,7 +8,7 @@ win = pygame.display.set_mode((width, height))
 
 clientNumber = 0
 GameScreen = 0
-
+m = MainMenu.Menu(win, False)
 
 class Player():
     def __init__(self, x, y, width, height, color):
@@ -40,7 +40,7 @@ def redrawWindow(win, player):
     # player.draw(win)
     if GameScreen == 0:
         win.fill((246, 114, 128))
-        m = MainMenu.Menu(win)
+        m = MainMenu.Menu(win, True)
     pygame.display.update()
 
 
@@ -55,8 +55,11 @@ def main():
                 run = False
                 pygame.quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                print(str(pygame.mouse.get_pos()[0])+" "+str(pygame.mouse.get_pos()[1]))
-
+                if m.outsideX < pygame.mouse.get_pos()[0] < m.outsideX+m.outsideWidth and m.b1OutsideY<pygame.mouse.get_pos()[1] < m.b1OutsideY+m.outsideHeight:
+                    print("begin")
+                elif m.outsideX < pygame.mouse.get_pos()[0] < m.outsideX+m.outsideWidth and m.b2OutsideY<pygame.mouse.get_pos()[1] < m.b2OutsideY+m.outsideHeight:
+                    run = False
+                    pygame.quit()
         # p.move()
         redrawWindow(win, p)
 
