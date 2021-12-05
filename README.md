@@ -1,2 +1,2 @@
 # PythonDungeonGame
-This is a multiplayer online python game which mimics a dungeon game. 
+This program is a client that allows you to play mini games on the same network with another person. 
