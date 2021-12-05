@@ -2,7 +2,7 @@ import pygame
 import sys
 
 class Menu:
-    def __init__(self, surface, boo):
+    def __init__(self, surface, boo, n):
         self.surface = surface
         self.color = (108, 91, 123)
         self.textColor = (248, 177, 149)
@@ -20,7 +20,10 @@ class Menu:
         self.screenstate1 =0
         self.username = "USERNAME"
         self.active = False
+        self.n = n
         while(boo):
+            if not n.connect()==None:
+                print(n.connect())
             self.surface.fill((246, 114, 128))
             #Username textbox
             inputrect = pygame.Rect(self.outsideX,self.b1OutsideY-130,self.outsideWidth,self.outsideHeight-50)
@@ -32,11 +35,14 @@ class Menu:
             surface.blit(text, textRect)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    n.send("Closing")
                     run = False
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b1OutsideY<pygame.mouse.get_pos()[1] < self.b1OutsideY+self.outsideHeight:
                         print("begin")
+                        n.send(self.username)
+                        n.send("Begin")
                         return
                     elif self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b2OutsideY<pygame.mouse.get_pos()[1] < self.b2OutsideY+self.outsideHeight:
                         pygame.quit()
