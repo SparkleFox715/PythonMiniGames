@@ -1,11 +1,14 @@
 import pygame
 import MainMenu
 import PlayerInfo
-
+import socket
+import os
 pygame.init()
 width = 800
 height = 800
 win = pygame.display.set_mode((width, height))
+os.system("start cmd /k python server.py") 
+os.system("start cmd /k python network.py") 
 
 clientNumber = 0
 GameScreen = 0
