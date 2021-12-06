@@ -102,8 +102,7 @@ class Menu:
                 if not (data == None or data=="time out"):
                     print(data)
                     if self.username2 =="":
-                        self.username2 = data  
-                     
+                        self.username2 = data       
             except:
                 pass
         

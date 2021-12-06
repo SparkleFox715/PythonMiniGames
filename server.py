@@ -13,7 +13,7 @@ try:
 except socket.error as e:
     str(e)
 
-s.listen(2)
+s.listen()
 print("Waiting for a connection, Server Started")
 
 
@@ -25,7 +25,7 @@ def threaded_client(conn, temp):
             data = conn.recv(2048)
             reply = data.decode("utf-8")
             if not data:
-                    break
+                break
             if data:
                 print("Received: ", reply)
                 print("Sending : ", reply)
