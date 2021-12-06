@@ -1,6 +1,7 @@
 import pygame
 import HostMainMenu
 import PlayerInfo
+import HostGameChoiceMenu
 import os
 from network import Network
 pygame.init()
@@ -17,22 +18,29 @@ n.send("P1 Connected")
 clientNumber = 0
 GameScreen = 0
 m = HostMainMenu.Menu(win, False,n)
-Player =PlayerInfo.player("")
+Player1 =PlayerInfo.player("")
+Player2 =PlayerInfo.player("")
 USERNAME = ""
 USERNAME2 = ""
 def redrawWindow(win):
     # player.draw(win)
     global GameScreen
-    global Player
+    global Player1
+    global Player2
     global m
     global USERNAME
+    global USERNAME2
     if GameScreen == 0:
         m = HostMainMenu.Menu(win, True, n)
         GameScreen+=1
-        Player = PlayerInfo.player(m.username)
-        USERNAME = Player.username
+        Player1 = PlayerInfo.player(m.username)
+        USERNAME = Player1.username
         USERNAME2 = m.username2
-        print(USERNAME+" "+USERNAME2)
+        Player2 = PlayerInfo.player(USERNAME2)
+        print(GameScreen)
+    elif GameScreen==1:
+        win.fill((0,0,0))
+        m = HostGameChoiceMenu.GameMenu(win, True, Player1)
     else:
         win.fill((246, 114, 128))
     pygame.display.update()

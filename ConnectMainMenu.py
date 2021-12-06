@@ -36,17 +36,15 @@ class Menu:
             surface.blit(text, textRect)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    n.send("Closing")
-                    
                     run = False
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    if self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b1OutsideY<pygame.mouse.get_pos()[1] < self.b1OutsideY+self.outsideHeight:
-                        print("begin")
-                        n.send(self.username)
-                        return
-                    elif self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b2OutsideY<pygame.mouse.get_pos()[1] < self.b2OutsideY+self.outsideHeight:
-                        pygame.quit()
+                    # if self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b1OutsideY<pygame.mouse.get_pos()[1] < self.b1OutsideY+self.outsideHeight:
+                    #     print("begin")
+                    #     n.send(self.username)
+                    #     return
+                    # elif self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b2OutsideY<pygame.mouse.get_pos()[1] < self.b2OutsideY+self.outsideHeight:
+                    #     pygame.quit()
                     if inputrect.collidepoint(event.pos):
                         self.active = True
                     else:
@@ -62,13 +60,9 @@ class Menu:
                 try:
                     data = n.client.recv(2048).decode()
                     if not (data == None or data=="time out"):
-                        print(data) 
-                        if self.username2 == "":
-                            self.username2 = data
-                            print (self.username2)
-                        else:
-                            return
-                        
+                        self.username2 = data.split("Begin")[0]
+                        n.send(self.username)
+                        return
                 except:
                     pass
                      

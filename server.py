@@ -17,27 +17,28 @@ s.listen(2)
 print("Waiting for a connection, Server Started")
 
 
-def threaded_client(conn, Stri):
+def threaded_client(conn, temp):
     conn.send(str.encode("Connected"))
     reply = ""
     while True:
         try:
             data = conn.recv(2048)
             reply = data.decode("utf-8")
-            
+            if not data:
+                    break
             if data:
                 print("Received: ", reply)
                 print("Sending : ", reply)
                 if not reply == "":
-                    if reply.__contains__("P1"):
-                        print("1111111")
-                    elif reply.__contains__("P2"):
-                        print("22222")
-            print(len(allclients))
-            with lock:
-                for c in allclients:
+                    # if reply.__contains__("P1"):
+                    #     print("1111111")
+                    # elif reply.__contains__("P2"):
+                    #     print("22222")
+                    print(len(allclients))
+                with lock:
+                    for c in allclients:
+                        c.sendall(str.encode(reply))
 
-                    c.sendall(str.encode(reply))
         except error as e:
             print("failed"+str(e))
             break
