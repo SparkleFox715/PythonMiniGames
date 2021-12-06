@@ -19,6 +19,7 @@ class Menu:
         self.insideHeight = 80
         self.screenstate1 =0
         self.username = "USERNAME"
+        self.username2 = ""
         self.active = False
         self.n = n
         while(boo):
@@ -100,4 +101,13 @@ class Menu:
             textRect.center = (textx, texty + 266)
             surface.blit(text, textRect)
             pygame.display.update()
+            try:
+                data = n.client.recv(2048).decode()
+                if not (data == None or data=="time out"):
+                    print(data)
+                    if self.username2 =="":
+                        self.username2 = data  
+                     
+            except:
+                pass
         

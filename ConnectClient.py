@@ -6,6 +6,7 @@ from network import Network
 time.sleep(1)
 n = Network()
 n.send("P2 Connected")
+
 pygame.init()
 width = 800
 height = 800
@@ -15,6 +16,7 @@ GameScreen = 0
 m = ConnectMainMenu.Menu(win, False,n)
 Player =PlayerInfo.player("")
 USERNAME = ""
+USERNAME2 = ""
 def redrawWindow(win):
     # player.draw(win)
     global GameScreen
@@ -26,6 +28,7 @@ def redrawWindow(win):
         GameScreen+=1
         Player = PlayerInfo.player(m.username)
         USERNAME = Player.username
+        USERNAME2 = m.username2
     else:
         win.fill((246, 114, 128))
     pygame.display.update()

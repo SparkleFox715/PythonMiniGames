@@ -19,6 +19,7 @@ GameScreen = 0
 m = HostMainMenu.Menu(win, False,n)
 Player =PlayerInfo.player("")
 USERNAME = ""
+USERNAME2 = ""
 def redrawWindow(win):
     # player.draw(win)
     global GameScreen
@@ -30,6 +31,8 @@ def redrawWindow(win):
         GameScreen+=1
         Player = PlayerInfo.player(m.username)
         USERNAME = Player.username
+        USERNAME2 = m.username2
+        print(USERNAME+" "+USERNAME2)
     else:
         win.fill((246, 114, 128))
     pygame.display.update()

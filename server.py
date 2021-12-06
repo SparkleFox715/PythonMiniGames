@@ -38,8 +38,6 @@ def threaded_client(conn, Stri):
                 for c in allclients:
 
                     c.sendall(str.encode(reply))
-                if len(allclients)>1:
-                    allclients[1].sendall(str.encode(reply))
         except error as e:
             print("failed"+str(e))
             break
