@@ -2,42 +2,42 @@ import socket
 from _thread import *
 import sys
 import threading
+from Game import game
+import pickle
 server = socket.gethostbyname(socket.gethostname())
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 allclients = []
-lock = threading.Lock()
+GM = game()
 try:
     s.bind((server, port))
 except socket.error as e:
     str(e)
 
-s.listen()
+s.listen(2)
 print("Waiting for a connection, Server Started")
 
 
-def threaded_client(conn, temp):
+def threaded_client(conn):
     conn.send(str.encode("Connected"))
-    reply = ""
+
     while True:
         try:
-            data = conn.recv(2048)
-            reply = data.decode("utf-8")
+            data = conn.recv(2048).decode()
             if not data:
                 break
             if data:
-                print("Received: ", reply)
-                print("Sending : ", reply)
-                if not reply == "":
-                    # if reply.__contains__("P1"):
-                    #     print("1111111")
-                    # elif reply.__contains__("P2"):
-                    #     print("22222")
-                    print(len(allclients))
-                with lock:
+                # print("Received: ", reply)
+                # print("Sending : ", reply)
+                if data =="getGame":
                     for c in allclients:
-                        c.sendall(str.encode(reply))
+                        try:
+                            c.sendall(pickle.dumps(GM))
+                        except:
+                            continue
+                elif data == "Begin":
+                    GM.setState("GamesMenu")
 
         except error as e:
             print("failed"+str(e))
@@ -47,9 +47,7 @@ def threaded_client(conn, temp):
     conn.close()
 
 while True:
-    print(1)
     conn, addr = s.accept()
-    with lock:
-        allclients.append(conn)
+    allclients.append(conn)
     print("Connected to:", addr)
-    start_new_thread(threaded_client, (conn, allclients))
+    start_new_thread(threaded_client, (conn,))

@@ -5,7 +5,6 @@ import ConnectMainMenu
 from network import Network
 time.sleep(1)
 n = Network()
-n.send("P2 Connected")
 
 pygame.init()
 width = 800
@@ -13,12 +12,12 @@ height = 800
 win = pygame.display.set_mode((width, height))
 clientNumber = 0
 GameScreen = 0
-m = ConnectMainMenu.Menu(win, False,n)
+m = ConnectMainMenu.Menu(win, False,n, "")
 Player1 =PlayerInfo.player("")
 Player2 =PlayerInfo.player("")
 USERNAME = ""
 USERNAME2 = ""
-def redrawWindow(win):
+def redrawWindow(win, game):
     # player.draw(win)
     global GameScreen
     global Player1
@@ -27,7 +26,7 @@ def redrawWindow(win):
     global USERNAME
     global USERNAME2
     if GameScreen == 0:
-        m = ConnectMainMenu.Menu(win, True, n)
+        m = ConnectMainMenu.Menu(win, True, n, game)
         GameScreen+=1
         USERNAME = Player1.username
         USERNAME2 = m.username2
@@ -40,10 +39,16 @@ def redrawWindow(win):
 
 
 def main():
+    global GameScreen
     run = True
     clock = pygame.time.Clock()
     while run:
         clock.tick(60)
+        try:
+            game = n.send("getGame")
+            GameScreen = game.getState()
+        except:
+            pass
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -51,7 +56,7 @@ def main():
             
                 
         # p.move()
-        redrawWindow(win)
+        redrawWindow(win, game)
 
 
 main()

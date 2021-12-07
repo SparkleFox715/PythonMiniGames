@@ -2,7 +2,7 @@ import pygame
 import sys
 
 class Menu:
-    def __init__(self, surface, boo, n):
+    def __init__(self, surface, boo, n, game):
         self.surface = surface
         self.color = (108, 91, 123)
         self.textColor = (248, 177, 149)
@@ -23,8 +23,11 @@ class Menu:
         self.active = False
         self.n = n
         self.num = 0
+        self.game = game
         while(boo):
-            
+            game = n.send("getGame")
+            if game.getState()==1:
+                break
             self.surface.fill((246, 114, 128))
             #Username textbox
             inputrect = pygame.Rect(self.outsideX,self.b1OutsideY-130,self.outsideWidth,self.outsideHeight-50)
@@ -34,6 +37,7 @@ class Menu:
             textRect = text.get_rect()
             textRect.center = (self.outsideX+self.outsideWidth/2, self.b1OutsideY-130+(self.outsideHeight-50)/2)
             surface.blit(text, textRect)
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -57,14 +61,14 @@ class Menu:
                                 if(textRect.w<171):
                                     self.username += event.unicode
                 pygame.display.update()
-                try:
-                    data = n.client.recv(2048).decode()
-                    if not (data == None or data=="time out"):
-                        self.username2 = data.split("Begin")[0]
-                        n.send(self.username)
-                        return
-                except:
-                    pass
+                # try:
+                #     data = n.client.recv(2048).decode()
+                #     if not (data == None or data=="time out"):
+                #         self.username2 = data.split("Begin")[0]
+                #         n.send(self.username)
+                #         return
+                # except:
+                #     pass
                      
             
         

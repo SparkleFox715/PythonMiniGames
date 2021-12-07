@@ -12,7 +12,6 @@ win = pygame.display.set_mode((width, height))
 os.system("start cmd /k python server.py") 
 #os.system("start cmd /k python network.py") 
 n = Network()
-n.send("P1 Connected")
 
 
 clientNumber = 0
@@ -23,7 +22,7 @@ Player2 =PlayerInfo.player("")
 USERNAME = ""
 USERNAME2 = ""
 def redrawWindow(win):
-    # player.draw(win)
+    # player.draw(win) 
     global GameScreen
     global Player1
     global Player2
@@ -47,10 +46,16 @@ def redrawWindow(win):
 
 
 def main():
+    global GameScreen
     run = True
     clock = pygame.time.Clock()
     while run:
         clock.tick(60)
+        try:
+            game = n.send("getGame")
+            GameScreen = game.getState()
+        except:
+            pass
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
