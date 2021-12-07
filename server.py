@@ -4,12 +4,13 @@ import sys
 import threading
 from Game import game
 import pickle
+from PlayerInfo import player
 server = socket.gethostbyname(socket.gethostname())
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 allclients = []
-GM = game()
+GM = game(player("Player1"), player("Player2"))
 try:
     s.bind((server, port))
 except socket.error as e:
@@ -38,6 +39,8 @@ def threaded_client(conn):
                             continue
                 elif data == "Begin":
                     GM.setState("GamesMenu")
+
+
 
         except error as e:
             print("failed"+str(e))
