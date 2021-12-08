@@ -4,11 +4,18 @@ class tictac:
         self.P1 = P1
         self.P2 = P2
         self.winner = ""
+        self.turn = 0
     def getWinner(self):
         if self.winner == "":
             return None
         else:
+            if self.winner =="P1":
+                self.P1.score+=1
+            if self.winner =="P2":
+                self.P2.score+=1
             return self.winner
+    def getTurn(self):
+        return self.turn%2
     def getBoard(self):
         return self.board
     def place(self, row, col, player):
@@ -17,6 +24,8 @@ class tictac:
                 self.board[row][col] = "X"
             elif player ==2:
                 self.board[row][col] ="O"
+            self.turn+=1
+            self.checkWin()
             return "True"
         else:
             return "False"

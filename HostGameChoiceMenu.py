@@ -13,15 +13,15 @@ class GameMenu:
         self.textcolor = (205,236,194)
         while(self.running):
             game = None
+            game = network.send("getGame")
             try:
-                game = network.send("getGame")
                 if not game.getState()==1:
                     break
             except:
                 pass
             self.screen.fill(self.backgroudcolor)
             font = pygame.font.Font('gillsans.ttf', 32)
-            text = font.render(player.username, True, self.textcolor)
+            text = font.render(player.username+" "+str(player.score), True, self.textcolor)
             textRect = text.get_rect()
             textRect.center = (400,15)
             screen.blit(text, textRect)

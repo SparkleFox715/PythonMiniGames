@@ -3,6 +3,7 @@ import pygame
 import PlayerInfo
 import ConnectMainMenu
 import ConnectGameChoiceMenu
+from TicTacToeDisplay import TicTacGame
 from network import Network
 time.sleep(0.5)
 n = Network()
@@ -25,6 +26,9 @@ def redrawWindow(win, game):
     if GameScreen ==1:
         win.fill((0,0,0))
         m = ConnectGameChoiceMenu.GameMenu(win, True, Player2, n)
+    if GameScreen ==2:
+        win.fill((0,0,0))
+        m = TicTacGame(win, True, n, Player2)
     pygame.display.update()
 
 

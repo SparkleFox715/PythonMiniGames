@@ -1,4 +1,5 @@
 import pygame
+import time
 class TicTacGame:
     def __init__(self, screen, running, network, player):
         self.screen = screen
@@ -11,15 +12,18 @@ class TicTacGame:
         self.textcolor = (30, 31, 38)
         self.linecolor = (0,0,0)
         self.board = None
+        self.winner = None
+        self.game = None
         while(self.running):
-            game = None
             try:
-                game = network.send("getGame")
-                self.board = game.tic.getBoard()
-                if game.getState ==1:
+                self.game = network.send("getGame")
+                self.winner = self.game.tic.getWinner()
+                self.board = self.game.tic.getBoard()
+                if self.game.getState ==1:
                     break
             except:
                 pass
+            
             self.screen.fill(self.backgroundcolor)
             font = pygame.font.Font('gillsans.ttf', 32)
             text = font.render(player.username, True, self.textcolor)
@@ -49,13 +53,57 @@ class TicTacGame:
                         pygame.draw.line(self.screen, self.Xlettercolor, ((a*200)+130, (b*200)+130), (((a+1)*200+80),((b+1)*200+80)), 25)
                         pygame.draw.line(self.screen, self.Xlettercolor, (((a+1)*200+80), (b*200)+130), ((a*200)+130,((b+1)*200+80)), 25)
                     elif self.board[a][b]=="O":
-                        pass
+                        pygame.draw.circle(self.screen, self.Olettercolor, ((a*200)+200, (b*200)+200), 75, width=25)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                     pygame.quit()
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
-                    if tile00.collidepoint(event.pos):
-                        possible =network.send("place "+str(player.number)+" 0 0")
-
+                if self.player.number-1 == self.game.tic.getTurn():
+                    if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                        if tile00.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 0 0")
+                        if tile01.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 0 1")
+                        if tile02.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 0 2")
+                        if tile10.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 1 0")
+                        if tile11.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 1 1")
+                        if tile12.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 1 2")
+                        if tile20.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 2 0")
+                        if tile21.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 2 1")
+                        if tile22.collidepoint(event.pos):
+                            possible =network.send("place "+str(player.number)+" 2 2")
+                        
+            if not self.winner==None:
+                self.running = False
+                try:
+                    self.game = network.send("getGame")
+                except:
+                    pass
+                temp = ""
+                if self.winner == "P1" and self.player.number ==1:
+                    temp  = "You Won!"
+                elif self.winner == "P2" and self.player.number ==2:
+                    temp = "You Won!"
+                else:
+                    temp = "You Lost..."
+                font = pygame.font.Font('gillsans.ttf', 50)
+                text = font.render(temp, True, self.textcolor)
+                textRect = text.get_rect()
+                textRect.center = (400,400)
+                screen.blit(text, textRect)
+                pygame.display.update()
+                time.sleep(2)
+                self.network.send("Begin")
             pygame.display.update()
+        # for x in range(10000000):
+
+       
+        # self.game.setState("GamesMenu")
+        
+            
