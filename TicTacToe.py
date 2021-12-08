@@ -64,4 +64,7 @@ class tictac:
             self.winner = "P2"
         elif self.board[0][2]=="O" and self.board[1][1]=="O" and self.board[2][0]=="O":
             self.winner = "P2"
+
+        if not self.board[0][0] == "" and not self.board[1][0] == "" and not self.board[2][0] == "" and not self.board[0][1] == "" and not self.board[1][1] == "" and not self.board[2][1] == "" and not self.board[0][2] == "" and not self.board[1][2] == "" and not self.board[2][2] == "":
+            self.winner ="Tie"
         

@@ -90,6 +90,8 @@ class TicTacGame:
                     temp  = "You Won!"
                 elif self.winner == "P2" and self.player.number ==2:
                     temp = "You Won!"
+                elif self.winner =="Tie":
+                    temp = "Tie"
                 else:
                     temp = "You Lost..."
                 font = pygame.font.Font('gillsans.ttf', 50)

@@ -37,6 +37,7 @@ def redrawWindow(win):
     if GameScreen ==2:
         win.fill((0,0,0))
         m=TicTacGame(win, True, n, Player1)
+        
         game.setState("GamesMenu")
         pygame.display.update()
     pygame.display.update()
