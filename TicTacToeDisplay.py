@@ -10,10 +10,12 @@ class TicTacGame:
         self.Olettercolor = (133, 30, 62)
         self.textcolor = (30, 31, 38)
         self.linecolor = (0,0,0)
+        self.board = None
         while(self.running):
             game = None
             try:
                 game = network.send("getGame")
+                self.board = game.tic.getBoard()
                 if game.getState ==1:
                     break
             except:
@@ -41,6 +43,13 @@ class TicTacGame:
             tile22 =pygame.Rect(500, 500, 200, 200)
             # pygame.draw.rect(self.screen, self.Xlettercolor, tile21)
             
+            for a in range(3):
+                for b in range(3):
+                    if self.board[a][b] == "X":
+                        pygame.draw.line(self.screen, self.Xlettercolor, ((a*200)+130, (b*200)+130), (((a+1)*200+80),((b+1)*200+80)), 25)
+                        pygame.draw.line(self.screen, self.Xlettercolor, (((a+1)*200+80), (b*200)+130), ((a*200)+130,((b+1)*200+80)), 25)
+                    elif self.board[a][b]=="O":
+                        pass
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -48,7 +57,5 @@ class TicTacGame:
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
                     if tile00.collidepoint(event.pos):
                         possible =network.send("place "+str(player.number)+" 0 0")
-                        if possible == "True":
-                            print("beryofihn")
-                            pygame.draw.line(self.screen, self.Xlettercolor, (110,110), (290,290), 10)
+
             pygame.display.update()

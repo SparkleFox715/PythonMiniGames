@@ -9,6 +9,8 @@ class tictac:
             return None
         else:
             return self.winner
+    def getBoard(self):
+        return self.board
     def place(self, row, col, player):
         if self.board[row][col]=="":
             if player ==1:
