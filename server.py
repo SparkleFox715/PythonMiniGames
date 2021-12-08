@@ -10,7 +10,7 @@ port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 allclients = []
-GM = game(player("Player1"), player("Player2"))
+GM = game(player("Player1", 1), player("Player2",2))
 try:
     s.bind((server, port))
 except socket.error as e:
@@ -32,14 +32,24 @@ def threaded_client(conn):
                 # print("Received: ", reply)
                 # print("Sending : ", reply)
                 if data =="getGame":
-                    for c in allclients:
-                        try:
-                            c.sendall(pickle.dumps(GM))
-                        except:
-                            continue
+                    # for c in allclients:
+                    #     try:
+                    # allclients[0].sendall(pickle.dumps(GM))
+                    # allclients[1].sendall(pickle.dumps(GM))
+                    conn.sendall(pickle.dumps(GM))
+                        # except:
+                        #     continue
                 elif data == "Begin":
                     GM.setState("GamesMenu")
-
+                elif data =="TicTacToe":
+                    GM.setState("TicTacToe")
+                    GM.startTicTacToe()
+                elif data.__contains__("place"):
+                    p = int(data.split(" ")[1])
+                    row = int(data.split(" ")[2])
+                    col = int(data.split(" ")[3])
+                    possible = GM.tic.place(row, col, p)
+                    conn.sendall(pickle.dumps(possible))
 
 
         except error as e:

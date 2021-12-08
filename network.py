@@ -8,7 +8,7 @@ class Network:
         self.port = 5555
         self.addr = (self.server, self.port)
         self.id = self.connect()
-        self.client.settimeout(1)
+        self.client.settimeout(0.01)
     def getInfo(self):
         return self.id
     def connect(self):
@@ -21,5 +21,6 @@ class Network:
         try:
             self.client.send(str.encode(data))
             return pickle.loads(self.client.recv(2048*4))
+
         except socket.error as e:
             print(e)

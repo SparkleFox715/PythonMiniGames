@@ -26,8 +26,11 @@ class Menu:
         self.game = game
         while(boo):
             game = n.send("getGame")
-            if game.getState()==1:
-                break
+            try:
+                if game.getState()==1:
+                    break
+            except:
+                pass
             self.surface.fill((246, 114, 128))
             #Username textbox
             inputrect = pygame.Rect(self.outsideX,self.b1OutsideY-130,self.outsideWidth,self.outsideHeight-50)

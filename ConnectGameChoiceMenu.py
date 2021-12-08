@@ -12,11 +12,9 @@ class GameMenu:
         self.buttontextcolor = (255,140,148)
         self.textcolor = (205,236,194)
         while(self.running):
-            game = None
+            game = ""
             try:
                 game = network.send("getGame")
-                if not game.getState()==1:
-                    break
             except:
                 pass
             self.screen.fill(self.backgroudcolor)
@@ -88,16 +86,5 @@ class GameMenu:
                     self.running = False
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
-                        if tile1.collidepoint(event.pos):
-                            self.network.send("TicTacToe")
-                        elif tile2.collidepoint(event.pos):
-                            pass
-                        elif tile3.collidepoint(event.pos):
-                            pass
-                        elif tile4.collidepoint(event.pos):
-                            pass
-                        elif tile5.collidepoint(event.pos):
-                            pass
-                        elif tile6.collidepoint(event.pos):
-                            pass
+                        pass
             pygame.display.update()
