@@ -9,7 +9,10 @@ class Pong:
         self.play1score = 0
         self.play2score =0
         self.ballspeed = 0
+        self.ballloc = [0,0]
         self.canhit = False
+        self.play1loc = [0,0]
+        self.play2loc = [0,0]
     def getWinner(self):
         if self.play1score==3:
             self.winner = "P1"
@@ -18,4 +21,11 @@ class Pong:
         else:
             self.winner = ""
         return self.winner
+    def getPlay1Loc(self):
+        return self.play1loc
+    def getPlay2Loc(self):
+        return self.play2loc
+    def getBallLoc(self):
+        return self.ballloc
+        
     
