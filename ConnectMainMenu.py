@@ -28,6 +28,7 @@ class Menu:
             game = n.send("getGame")
             try:
                 if game.getState()==1:
+                    n.send("P2 "+self.username)
                     break
             except:
                 pass
@@ -63,6 +64,7 @@ class Menu:
                             else:
                                 if(textRect.w<171):
                                     self.username += event.unicode
+                            
                 pygame.display.update()
                 # try:
                 #     data = n.client.recv(2048).decode()

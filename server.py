@@ -50,6 +50,15 @@ def threaded_client(conn):
                     col = int(data.split(" ")[3])
                     possible = GM.tic.place(row, col, p)
                     conn.sendall(pickle.dumps(possible))
+                elif data.__contains__("P1"):
+                    GM.player1 = player(data.split(" ")[1] ,1)
+                elif data.__contains__("P2"):
+                    GM.player2 = player(data.split(" ")[1],2)
+                elif data == "Inc1":
+                    GM.player1.score+=1
+                elif data == "Inc2":
+                    GM.player2.score+=1
+
 
 
         except error as e:

@@ -14,6 +14,7 @@ class TicTacGame:
         self.board = None
         self.winner = None
         self.game = None
+        self.beg = True
         while(self.running):
             try:
                 self.game = network.send("getGame")
@@ -45,6 +46,37 @@ class TicTacGame:
             tile02 =pygame.Rect(100, 500, 200, 200)
             tile12 =pygame.Rect(300, 500, 200, 200)
             tile22 =pygame.Rect(500, 500, 200, 200)
+            
+            if self.beg:
+                try:
+                    self.game=  network.send("getGame")
+                    if self.game.tic.turn == 0 and player.number ==1:
+                        font = pygame.font.Font('gillsans.ttf', 50)
+                        text = font.render("Your turn", True, (255,255,255))
+                        textRect = text.get_rect()
+                        textRect.center = (400,400)
+                        screen.blit(text, textRect)
+                        pygame.display.update()
+                        time.sleep(2)
+                    elif self.game.tic.turn ==1 and player.number ==2:
+                        font = pygame.font.Font('gillsans.ttf', 50)
+                        text = font.render("Your turn", True, (255,255,255))
+                        textRect = text.get_rect()
+                        textRect.center = (400,400)
+                        screen.blit(text, textRect)
+                        pygame.display.update()
+                        time.sleep(2)    
+                    else:
+                        font = pygame.font.Font('gillsans.ttf', 50)
+                        text = font.render("Opponent turn", True, (255,255,255))
+                        textRect = text.get_rect()
+                        textRect.center = (400,400)
+                        screen.blit(text, textRect)
+                        pygame.display.update()
+                        time.sleep(2)
+                    self.beg = False
+                except:
+                    pass
             # pygame.draw.rect(self.screen, self.Xlettercolor, tile21)
             
             for a in range(3):
@@ -88,14 +120,16 @@ class TicTacGame:
                 temp = ""
                 if self.winner == "P1" and self.player.number ==1:
                     temp  = "You Won!"
+                    network.send("Inc"+str(player.number))
                 elif self.winner == "P2" and self.player.number ==2:
                     temp = "You Won!"
+                    network.send("Inc"+str(player.number))
                 elif self.winner =="Tie":
                     temp = "Tie"
                 else:
                     temp = "You Lost..."
                 font = pygame.font.Font('gillsans.ttf', 50)
-                text = font.render(temp, True, self.textcolor)
+                text = font.render(temp, True, (255,255,255))
                 textRect = text.get_rect()
                 textRect.center = (400,400)
                 screen.blit(text, textRect)

@@ -1,10 +1,11 @@
+from random import randint
 class tictac:
     def __init__(self, P1, P2):
         self.board = [["","",""],["","",""],["","",""]]
         self.P1 = P1
         self.P2 = P2
         self.winner = ""
-        self.turn = 0
+        self.turn = randint(0,1)
     def getWinner(self):
         if self.winner == "":
             return None
