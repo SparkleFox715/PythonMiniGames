@@ -4,7 +4,7 @@ Althought the latest version doesn't include all of the minigames, all of the ne
 There are 2 ways to run this program: on one computer(master control) or on two computers(normal control)
 
 **MASTER CONTROL**
-
+To run the file with master control, 
 **NORMAL CONTROL**
 
 ```drg```
