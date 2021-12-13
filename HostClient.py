@@ -1,4 +1,5 @@
 from TicTacToeDisplay import TicTacGame
+from DuelDisplay import DuelGame
 import pygame
 import HostMainMenu
 import PlayerInfo
@@ -37,7 +38,11 @@ def redrawWindow(win):
     if GameScreen ==2:
         win.fill((0,0,0))
         m=TicTacGame(win, True, n, Player1)
-        
+        game.setState("GamesMenu")
+        pygame.display.update()
+    if GameScreen ==3:
+        win.fill((0,0,0))
+        m = DuelGame(win, True, n, Player1)
         game.setState("GamesMenu")
         pygame.display.update()
     pygame.display.update()

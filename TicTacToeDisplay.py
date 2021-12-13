@@ -27,7 +27,7 @@ class TicTacGame:
             
             self.screen.fill(self.backgroundcolor)
             font = pygame.font.Font('gillsans.ttf', 32)
-            text = font.render(player.username, True, self.textcolor)
+            text = font.render(self.player.username, True, self.textcolor)
             textRect = text.get_rect()
             textRect.center = (400,15)
             screen.blit(text, textRect)

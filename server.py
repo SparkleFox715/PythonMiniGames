@@ -44,6 +44,9 @@ def threaded_client(conn):
                 elif data =="TicTacToe":
                     GM.setState("TicTacToe")
                     GM.startTicTacToe()
+                elif data == "DuelGame":
+                    GM.setState("Duel")
+                    GM.startDuelGame()
                 elif data.__contains__("place"):
                     p = int(data.split(" ")[1])
                     row = int(data.split(" ")[2])
@@ -58,6 +61,12 @@ def threaded_client(conn):
                     GM.player1.score+=1
                 elif data == "Inc2":
                     GM.player2.score+=1
+
+                elif data=="DuelP1 Left":
+                    print(324532)
+                    GM.du.moveLeft(1)
+                    
+                
 
 
 

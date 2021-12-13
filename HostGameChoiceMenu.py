@@ -41,7 +41,7 @@ class GameMenu:
             tile2a = pygame.Rect(10,300,375,200)
             pygame.draw.rect(self.screen, self.buttoncolor, tile2)
             pygame.draw.rect(self.screen, self.buttoncolor, tile2a, 10, 10)
-            text = font.render("Game2", True, self.buttontextcolor)
+            text = font.render("Duel", True, self.buttontextcolor)
             textRect = text.get_rect()
             textRect.center = (197, 400)
             screen.blit(text, textRect)
@@ -91,7 +91,7 @@ class GameMenu:
                         if tile1.collidepoint(event.pos):
                             self.network.send("TicTacToe")
                         elif tile2.collidepoint(event.pos):
-                            pass
+                            self.network.send("DuelGame")
                         elif tile3.collidepoint(event.pos):
                             pass
                         elif tile4.collidepoint(event.pos):

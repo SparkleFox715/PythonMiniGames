@@ -10,7 +10,7 @@ class Network:
         self.port = 5555
         self.addr = (self.server, self.port)
         self.id = self.connect()
-        self.client.settimeout(0.01)
+        self.client.settimeout(0.1)
     def getInfo(self):
         return self.id
     def connect(self):
