@@ -28,7 +28,7 @@ class Menu:
             game = n.send("getGame")
             try:
                 if game.getState()==1:
-                    n.send("P2 "+self.username)
+                    n.send("P2Username "+self.username)
                     break
             except:
                 pass

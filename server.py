@@ -53,19 +53,28 @@ def threaded_client(conn):
                     col = int(data.split(" ")[3])
                     possible = GM.tic.place(row, col, p)
                     conn.sendall(pickle.dumps(possible))
-                elif data.__contains__("P1"):
+                elif data.__contains__("P1Username"):
                     GM.player1 = player(data.split(" ")[1] ,1)
-                elif data.__contains__("P2"):
+                elif data.__contains__("P2Username"):
                     GM.player2 = player(data.split(" ")[1],2)
                 elif data == "Inc1":
                     GM.player1.score+=1
                 elif data == "Inc2":
                     GM.player2.score+=1
-
-                elif data=="DuelP1 Left":
-                    print(324532)
+                elif data == "DuelP1 Left":
                     GM.du.moveLeft(1)
-                    
+                elif data == "DuelP1 Right":
+                    GM.du.moveRight(1)
+                elif data == "DuelP1 Up":
+                    GM.du.moveUp(1)
+                elif data == "DuelP1 Down":
+                    GM.du.moveDown(1)
+                elif data == "Time":
+                    GM.du.assignTime()
+                elif data == "ResetTime":
+                    GM.du.resetTime()
+                elif data =="DuelAmmo1Inc":
+                    GM.du.incAmmo(1)
                 
 
 

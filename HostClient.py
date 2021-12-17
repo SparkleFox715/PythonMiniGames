@@ -26,7 +26,6 @@ def redrawWindow(win):
     global GameScreen
     global Player1
     global m
-    print("Client"+str(GameScreen))
     if GameScreen == 0:
         m = HostMainMenu.Menu(win, True, n)
         Player1 = PlayerInfo.player(m.username,1)

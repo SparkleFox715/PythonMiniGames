@@ -38,7 +38,7 @@ class Menu:
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b1OutsideY<pygame.mouse.get_pos()[1] < self.b1OutsideY+self.outsideHeight:
-                        n.send("P1 "+self.username)
+                        n.send("P1Username "+self.username)
                         n.send("Begin")
                         return
                     elif self.outsideX < pygame.mouse.get_pos()[0] < self.outsideX+self.outsideWidth and self.b2OutsideY<pygame.mouse.get_pos()[1] < self.b2OutsideY+self.outsideHeight:

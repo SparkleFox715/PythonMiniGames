@@ -90,7 +90,7 @@ class TicTacGame:
                 if event.type == pygame.QUIT:
                     self.running = False
                     pygame.quit()
-                if self.player.number-1 == self.game.tic.getTurn():
+                if not self.game.tic ==None and self.player.number-1 == self.game.tic.getTurn():
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
                         if tile00.collidepoint(event.pos):
                             possible =network.send("place "+str(player.number)+" 0 0")

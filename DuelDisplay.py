@@ -14,10 +14,14 @@ class DuelGame:
         self.game = None
         self.winner = None
         self.text = None
+        self.pressedLeft= False
+        self.pressedRight = False
+        self.pressedUp = False
+        self.pressedDown = False
         while(self.running):
             try:
                 self.game = network.send("getGame")
-                self.winner = self.game.tic.getWinner()
+                self.winner = self.game.du.getWinner()
                 if self.game.getState ==1:
                     break
             except:
@@ -44,6 +48,33 @@ class DuelGame:
                 pygame.draw.polygon(self.screen, self.p2color, [(self.game.du.getP2Loc()[0], 30),(self.game.du.getP2Loc()[0]+10, 35),(self.game.du.getP2Loc()[0], 10),(self.game.du.getP2Loc()[0]-10, 35)])
             elif self.player.number==2:
                 pass
+            
+            #check ammo and display
+            if player.number ==1:
+                if self.game.du.P1Ammo<6 and self.game.du.currentTime ==0:
+                    network.send("Time")
+                elif self.game.du.P1Ammo<6:
+                    if self.game.du.getTime()-self.game.du.currentTime>6000:
+                        network.send("ResetTime")
+                        network.send("DuelAmmo1Inc")
+                        print(self.game.du.P1Ammo)
+                print (self.game.du.currentTime)
+
+                if self.game.du.P1Ammo>1:
+                    pygame.draw.polygon(self.screen, (255,255,255), [(self.game.du.getP1Loc()[0]-35, self.game.du.getP1Loc()[1]-5),(self.game.du.getP1Loc()[0]-42, 100),(120,30),(12,4)])
+
+
+
+            elif player.number==2:
+                if self.game.du.P2Ammo<6 and self.game.du.currentTime ==0:
+                    network.send("Time")
+                elif self.game.du.P2Ammo<6:
+                    if self.game.du.getTime()-self.game.du.currentTime>6000:
+                        network.send("ResetTime")
+                        network.send("DuelAmmo1Inc")
+                        print(self.game.du.P2Ammo)
+                print (self.game.du.currentTime)
+
 
             #keybinds
             for event in pygame.event.get():
@@ -52,13 +83,30 @@ class DuelGame:
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key ==pygame.K_a:
-                        self.network.send("DuelP"+str(self.player.number)+" Left")
+                        self.pressedLeft = True
                     if event.key==pygame.K_w:
-                        self.network.send("DuelP"+str(self.player.number)+" Up")
+                        self.pressedUp = True
                     if event.key == pygame.K_s:
-                        self.network.send("DuelP"+str(self.player.number)+" Down")
+                        self.pressedDown = True          
                     if event.key==pygame.K_d:
-                        self.network.send("DuelP"+str(self.player.number)+" Right")
+                        self.pressedRight = True
+                if event.type ==pygame.KEYUP:
+                    if event.key ==pygame.K_a:
+                        self.pressedLeft = False
+                    if event.key==pygame.K_w:
+                        self.pressedUp = False
+                    if event.key == pygame.K_s:
+                        self.pressedDown = False         
+                    if event.key==pygame.K_d:
+                        self.pressedRight = False
+            if self.pressedLeft:
+                self.network.send("DuelP"+str(self.player.number)+" Left")
+            if self.pressedRight:
+                self.network.send("DuelP"+str(self.player.number)+" Right")
+            if self.pressedUp:
+                self.network.send("DuelP"+str(self.player.number)+" Up")
+            if self.pressedDown:
+                self.network.send("DuelP"+str(self.player.number)+" Down")
 
             #endgame
             if not self.winner==None:
