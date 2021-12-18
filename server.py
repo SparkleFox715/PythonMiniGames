@@ -69,12 +69,26 @@ def threaded_client(conn):
                     GM.du.moveUp(1)
                 elif data == "DuelP1 Down":
                     GM.du.moveDown(1)
-                elif data == "Time":
-                    GM.du.assignTime()
-                elif data == "ResetTime":
-                    GM.du.resetTime()
+                elif data == "DuelP2 Left":
+                    GM.du.moveLeft(2)
+                elif data == "DuelP2 Right":
+                    GM.du.moveRight(2)
+                elif data == "DuelP2 Up":
+                    GM.du.moveUp(2)
+                elif data == "DuelP2 Down":
+                    GM.du.moveDown(2)
+                elif data == "Time1":
+                    GM.du.assignTime(1)
+                elif data == "ResetTime1":
+                    GM.du.resetTime(1)
+                elif data == "Time2":
+                    GM.du.assignTime(2)
+                elif data == "ResetTime2":
+                    GM.du.resetTime(2)
                 elif data =="DuelAmmo1Inc":
                     GM.du.incAmmo(1)
+                elif data =="DuelAmmo2Inc":
+                    GM.du.incAmmo(2)
                 
 
 

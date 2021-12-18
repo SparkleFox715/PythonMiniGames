@@ -88,6 +88,4 @@ class GameMenu:
                 if event.type == pygame.QUIT:
                     self.running = False
                     pygame.quit()
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
-                        pass
             pygame.display.update()
